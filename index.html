@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>이벤트 참여 안내</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    body {
+      font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+    .page {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      background: #ffffff;
+      overflow: hidden;
+    }
+    .header-video,
+    .body-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <video
+      class="header-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-label="이벤트 헤더 모션"
+    >
+      <source src="./header.mp4" type="video/mp4" />
+    </video>
+
+    <img
+      class="body-image"
+      src="./body.png"
+      alt="이벤트 참여 안내와 참여자 이야기를 소개하는 본문"
+    />
+  </main>
+</body>
+</html>
