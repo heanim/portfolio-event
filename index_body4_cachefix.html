@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <title>나의 AI이야기를 소개해주세요</title>
+  <meta name="description" content="AI를 배우면서 느낀 나만의 변화, 계기, 순간을 들려주세요." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="나의 AI이야기를 소개해주세요" />
+  <meta property="og:description" content="AI를 배우면서 느낀 나만의 변화, 계기, 순간을 들려주세요." />
+  <meta property="og:url" content="https://heanim.github.io/portfolio-event/" />
+  <meta property="og:image" content="https://heanim.github.io/portfolio-event/og-image.png?v=20260820-7" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="나의 AI이야기를 소개해주세요" />
+  <meta name="twitter:description" content="AI를 배우면서 느낀 나만의 변화, 계기, 순간을 들려주세요." />
+  <meta name="twitter:image" content="https://heanim.github.io/portfolio-event/og-image.png?v=20260820-7" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>" />
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    body {
+      font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .media,
+    .image {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    /* Prevent 1px GPU/rendering seams around scaled video layers on mobile. */
+    .video-wrap {
+      width: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      line-height: 0;
+    }
+
+    .video-wrap video {
+      display: block;
+      width: calc(100% + 2px);
+      max-width: none;
+      height: auto;
+      margin-left: -1px;
+      border: 0;
+      outline: 0;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <!-- 1. Header: autoplay + infinite loop -->
+    <div class="video-wrap">
+      <video
+        class="media"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="./header-poster.jpg?v=20260820-7"
+        aria-label="헤더 모션"
+      >
+        <source src="./header.mp4?v=20260820-7" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- 2. Body 1: play once when first visible, then hold on final frame -->
+    <div class="video-wrap">
+      <video
+        id="body1Video"
+        class="media"
+        muted
+        playsinline
+        preload="metadata"
+        poster="./body1-poster.jpg?v=20260820-7"
+        aria-label="본문 첫 번째 모션"
+      >
+        <source src="./body1.mp4?v=20260820-7" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- 3. Body 2: image -->
+    <img
+      class="image"
+      src="./body2.png?v=20260820-7"
+      alt="본문 두 번째 이미지"
+      decoding="async"
+    />
+
+    <!-- 4. Body 3: autoplay + infinite loop -->
+    <div class="video-wrap">
+      <video
+        class="media"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="./body3-poster.jpg?v=20260820-7"
+        aria-label="본문 세 번째 모션"
+      >
+        <source src="./body3.mp4?v=20260820-7" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- 5. Body 4: image -->
+    <img
+      class="image"
+      src="./body4.png?v=20260821-1"
+      alt="본문 네 번째 이미지"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!-- 6. Body 5: autoplay + infinite loop -->
+    <div class="video-wrap">
+      <video
+        class="media"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="./body5-poster.jpg?v=20260820-7"
+        aria-label="본문 다섯 번째 모션"
+      >
+        <source src="./body5.mp4?v=20260820-7" type="video/mp4" />
+      </video>
+    </div>
+
+  </main>
+
+  <script>
+    (() => {
+      const video = document.getElementById('body1Video');
+      let hasStarted = false;
+
+      const playOnce = () => {
+        if (hasStarted) return;
+        hasStarted = true;
+        video.play().catch(() => {
+          hasStarted = false;
+        });
+      };
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+              playOnce();
+              if (hasStarted) observer.disconnect();
+            }
+          }
+        }, { threshold: [0.25] });
+
+        observer.observe(video);
+      } else {
+        playOnce();
+      }
+
+      video.addEventListener('ended', () => {
+        video.pause();
+        if (Number.isFinite(video.duration) && video.duration > 0.08) {
+          video.currentTime = Math.max(0, video.duration - 0.04);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
